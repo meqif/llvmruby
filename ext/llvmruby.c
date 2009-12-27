@@ -154,6 +154,7 @@ VALUE llvm_pass_manager_run(VALUE, VALUE);
 VALUE llvm_execution_engine_get(VALUE, VALUE);
 VALUE llvm_execution_engine_run_function(int, VALUE*, VALUE);
 VALUE llvm_execution_engine_run_autoconvert(VALUE, VALUE);
+VALUE llvm_execution_engine_run_function_autoconvert(int, VALUE*, VALUE);
 
 void Init_llvmruby() {
   cLLVMRuby = rb_define_module("LLVM");
@@ -320,6 +321,7 @@ void Init_llvmruby() {
   rb_define_module_function(cLLVMExecutionEngine, "get", llvm_execution_engine_get, 1);
   rb_define_module_function(cLLVMExecutionEngine, "run_function", llvm_execution_engine_run_function, -1);
   rb_define_module_function(cLLVMExecutionEngine, "run_autoconvert", llvm_execution_engine_run_autoconvert, 1);
+  rb_define_module_function(cLLVMExecutionEngine, "run_function_autoconvert", llvm_execution_engine_run_function_autoconvert, -1);
 
   /*
   printf("sizeof long: %d\n", (int)sizeof(long));

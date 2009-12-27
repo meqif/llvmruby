@@ -218,4 +218,25 @@ VALUE llvm_execution_engine_run_autoconvert(VALUE klass, VALUE func) {
   VALUE val = INT2NUM(v.IntVal.getZExtValue());
   return val;
 }
+
+VALUE
+llvm_execution_engine_run_function_autoconvert(int argc, VALUE *argv, VALUE klass) {
+  if(argc < 1) { rb_raise(rb_eArgError, "Expected at least one argument"); }
+  CHECK_TYPE(argv[0], cLLVMFunction);
+  Function *func = LLVM_FUNCTION(argv[0]);
+
+  // Using run function is much slower than getting C function pointer
+  // and calling that, but it lets us pass in arbitrary numbers of
+  // arguments easily for now, which is nice
+  std::vector<GenericValue> arg_values;
+  for(int i = 1; i < argc; ++i) {
+    GenericValue arg_val;
+    arg_val.IntVal = APInt(sizeof(long)*8, argv[i]);
+    arg_values.push_back(arg_val);
+  }
+
+  GenericValue v = EE->runFunction(func, arg_values);
+  VALUE val = INT2NUM(v.IntVal.getZExtValue());
+  return val;
+}
 }
