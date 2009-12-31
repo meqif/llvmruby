@@ -278,6 +278,9 @@ VALUE
 llvm_builder_call(int argc, VALUE* argv, VALUE self) {
   DATA_GET_BUILDER
 
+  if (argv[0] == Qnil)
+    rb_raise(rb_eRuntimeError, "Calling a NULL function pointer");
+
   Function *callee = LLVM_FUNCTION(argv[0]);
   int num_args = argc-1;
   Value** args = (Value**)alloca(num_args*sizeof(Value*));
