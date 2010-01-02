@@ -45,4 +45,11 @@ llvm_function_get_basic_block_list(VALUE self) {
   return bb_array;
 }
 
+VALUE
+llvm_function_return_type(VALUE self) {
+  Function *f = LLVM_FUNCTION(self);
+  const Type *t = f->getReturnType();
+  return Data_Wrap_Struct(cLLVMType, NULL, NULL, (void*) t);;
+}
+
 }
