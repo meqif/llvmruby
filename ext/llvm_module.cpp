@@ -46,7 +46,9 @@ llvm_module_get_function(VALUE self, VALUE name) {
   Check_Type(name, T_STRING);
   Module *m = LLVM_MODULE(self);
   Function *f = m->getFunction(StringValuePtr(name));
-  return llvm_function_wrap(f);  
+  if (f == NULL)
+    rb_raise(rb_eRuntimeError, "Function not found!");
+  return llvm_function_wrap(f);
 }
 
 VALUE
