@@ -62,6 +62,7 @@ VALUE llvm_function_arguments(VALUE);
 VALUE llvm_function_inspect(VALUE);
 VALUE llvm_function_get_basic_block_list(VALUE);
 VALUE llvm_function_return_type(VALUE);
+VALUE llvm_function_type(VALUE);
 
 VALUE llvm_basic_block_builder(VALUE);
 VALUE llvm_basic_block_size(VALUE);
@@ -256,6 +257,7 @@ void Init_llvmruby() {
   rb_define_method(cLLVMFunction, "inspect", llvm_function_inspect, 0);
   rb_define_method(cLLVMFunction, "get_basic_block_list", llvm_function_get_basic_block_list, 0);
   rb_define_method(cLLVMFunction, "return_type", llvm_function_return_type, 0);
+  rb_define_method(cLLVMFunction, "type", llvm_function_type, 0);
 
   rb_define_method(cLLVMBasicBlock, "builder", llvm_basic_block_builder, 0);
   rb_define_method(cLLVMBasicBlock, "size", llvm_basic_block_size, 0);

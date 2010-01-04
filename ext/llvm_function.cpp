@@ -52,4 +52,11 @@ llvm_function_return_type(VALUE self) {
   return Data_Wrap_Struct(cLLVMType, NULL, NULL, (void*) t);;
 }
 
+VALUE
+llvm_function_type(VALUE self) {
+  Function *f = LLVM_FUNCTION(self);
+  const Type *t = f->getFunctionType();
+  return Data_Wrap_Struct(cLLVMType, NULL, NULL, (void*) t);;
+}
+
 }
